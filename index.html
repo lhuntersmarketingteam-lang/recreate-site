@@ -2309,45 +2309,27 @@
 
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 
-  // Infinite auto-scroll for activities and reviews
-  function setupInfiniteScroll(selector, speed) {
+  // Auto-scroll (simple, resets to start when end reached)
+  function setupAutoScroll(selector, speed) {
     const container = document.querySelector(selector);
     if (!container) return;
-
-    // Clone all original children for seamless loop
-    const origItems = Array.from(container.children);
-    origItems.forEach(item => {
-      const clone = item.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
-      container.appendChild(clone);
-    });
 
     let animId = null;
     let paused = false;
     let resumeTimer = null;
-    let loopWidth = 0; // measured lazily on first tick after render
 
     function tick() {
-      // Measure lazily so the browser has already laid out clones
-      if (!loopWidth) loopWidth = container.scrollWidth / 2;
-
       if (!paused) {
         container.scrollLeft += speed;
-        // Jump back by exactly one copy — seamless
-        if (container.scrollLeft >= loopWidth) {
-          container.scrollLeft -= loopWidth;
+        if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 1) {
+          container.scrollLeft = 0;
         }
       }
       animId = requestAnimationFrame(tick);
     }
 
-    function pauseAuto() {
-      paused = true;
-      clearTimeout(resumeTimer);
-    }
-    function scheduleResume() {
-      resumeTimer = setTimeout(() => { paused = false; }, 1800);
-    }
+    function pauseAuto() { paused = true; clearTimeout(resumeTimer); }
+    function scheduleResume() { resumeTimer = setTimeout(() => { paused = false; }, 1800); }
 
     container.addEventListener('mouseenter', pauseAuto);
     container.addEventListener('mouseleave', scheduleResume);
@@ -2355,7 +2337,6 @@
     container.addEventListener('touchend', scheduleResume);
     container.addEventListener('wheel', () => { pauseAuto(); scheduleResume(); }, { passive: true });
 
-    // Start only when section is visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -2370,8 +2351,8 @@
     observer.observe(container);
   }
 
-  setupInfiniteScroll('.activities-scroll', 0.6);
-  setupInfiniteScroll('.reviews-scroll', 0.5);
+  setupAutoScroll('.activities-scroll', 0.6);
+  setupAutoScroll('.reviews-scroll', 0.5);
 </script>
 
 </body>
