@@ -217,6 +217,9 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
     }
     .hero__media::after {
       content: '';
@@ -1411,6 +1414,24 @@
       .footer__contacts { font-size: 1rem; }
     }
 
+    /* ============================================
+       TOUCH DEVICES — disable hover animations
+       ============================================ */
+    @media (hover: none) {
+      .activity-card:hover .activity-card__image img { transform: none; }
+      .activity-card:active .activity-card__image img { transform: none; }
+      .emotion-card:hover { transform: none; }
+      .emotion-card:active { transform: none; }
+      .emotion-card:hover .emotion-card__image img { transform: none; }
+    }
+
+    /* ============================================
+       MOBILE — larger base font size
+       ============================================ */
+    @media (max-width: 640px) {
+      html { font-size: 100%; }
+    }
+
     /* Plain image placeholder helper */
     .img-placeholder {
       width: 100%;
@@ -1516,7 +1537,6 @@
     </div>
 
     <div class="immersion__content" data-reveal data-reveal-delay="1">
-      <div class="immersion__eyebrow eyebrow">Перший день</div>
       <div class="immersion__text">
         <p>Ранок. Відкриваєш очі — Монблан за вікном. Запах кави знизу, десь шеф уже щось готує. У шале тихо, лише чути, як прокидається група.</p>
         <p>До обіду — гори. Тропа, скеля чи віаферрата над ущелиною — залежить від дня. Тіло вмикається не одразу. А потім ловиш темп, дихання вирівнюється, і ти розумієш, що це воно.</p>
@@ -1536,10 +1556,10 @@
       <h2 class="essence__title" data-reveal>Не тур.<br />Не ретрит.<br />Не збори.</h2>
       <div class="essence__divider" data-reveal data-reveal-delay="1"></div>
       <p class="essence__text" data-reveal data-reveal-delay="2">
-        <strong>Mountain lifestyle camp</strong> — де все найкраще з гірського досвіду зібрано в 8 днів із максимальною турботою.
+        <strong>Recreate</strong> — це Mountain lifestyle camp у Шамоні на 8 днів для тих, хто хоче гір, але не хоче самостійно складати логістику, шукати гідів, бронювати житло й думати про харчування.
       </p>
       <p class="essence__text essence__text-secondary" data-reveal data-reveal-delay="3">
-        Ми закохані в гори й активний спорт — і хочемо передати цю закоханість тобі.
+        Ми закохані в гори й активний спорт — і хочемо передати цю закоханість тобі. Тут все вже продумано: шале, шеф-кухар, тренери, гіди, маршрути. Ти просто приїжджаєш і рухаєшся.
       </p>
     </div>
     <div class="essence__photos" data-reveal data-reveal-delay="1">
@@ -1554,7 +1574,7 @@
      04. 6 ЕМОЦІЙ
      ============================================ -->
 <section class="container">
-  <h2 class="section-title" data-reveal data-reveal-delay="1">Що ти забереш<br />із собою.</h2>
+  <h2 class="section-title" data-reveal data-reveal-delay="1">Що на тебе<br />чекає.</h2>
 
   <div class="emotions-grid">
     <article class="emotion-card" data-reveal>
@@ -1620,7 +1640,7 @@
       <div class="emotion-card__body">
         <div class="emotion-card__label">06  ·  Earned confidence</div>
         <h3 class="emotion-card__title">Впевненість, яку не дають слова.</h3>
-        <p class="emotion-card__desc">Ти був на скелі. Ти пробіг тропами UTMB. Це вже не мотивація — це твій досвід.</p>
+        <p class="emotion-card__desc">Ти був на скелі. Ти пробіг тропами UTMB (Ultra-Trail du Mont-Blanc). Це вже не мотивація — це твій досвід.</p>
       </div>
     </article>
   </div>
@@ -1642,7 +1662,7 @@
         <img src="activity-trail.jpg" alt="Хайкери з рюкзаками на альпійській тропі" loading="lazy" />
       </div>
       <h3 class="activity-card__title">Трейл</h3>
-      <p class="activity-card__desc">По справжніх тропах UTMB. Бігти чи йти — вирішуєш ти.</p>
+      <p class="activity-card__desc">По справжніх тропах UTMB (Ultra-Trail du Mont-Blanc). Бігти чи йти — вирішуєш ти.</p>
     </article>
 
     <article class="activity-card" data-reveal data-reveal-delay="1">
@@ -1851,7 +1871,7 @@
       <div class="program__day-label">День 02</div>
       <div>
         <h3 class="program__day-title">Трейл по тропах UTMB.</h3>
-        <p class="program__day-desc">Ті самі тропи, якими щороку в серпні біжить півсвіту. Ти — просто сьогодні.</p>
+        <p class="program__day-desc">Ті самі тропи UTMB (Ultra-Trail du Mont-Blanc), якими щороку в серпні біжить півсвіту. Ти — просто сьогодні.</p>
       </div>
     </div>
     <div class="program__day" data-reveal>
@@ -1995,6 +2015,8 @@
           <li>Трансфер Женева → Шамоні (можемо організувати груповий)</li>
           <li>Обіди (вільний формат)</li>
           <li>Особисте спорядження (дамо чек-лист)</li>
+          <li>Спорядження для віафератти (каска, обв'язка, вусики — оренда на місці)</li>
+          <li>Вартість підйомника (за потреби · підкажемо заздалегідь)</li>
           <li>Страхування (обовʼязкове · підкажемо де)</li>
         </ul>
       </div>
