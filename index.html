@@ -595,22 +595,17 @@
       background: var(--color-bg);
     }
     .activities-scroll {
-      overflow: hidden;
-      padding-bottom: 2rem;
-      margin: 0 calc(-1 * var(--container-padding));
-    }
-    .activities-scroll__track {
       display: flex;
       gap: 1.25rem;
-      width: max-content;
+      overflow-x: auto;
+      padding-bottom: 2rem;
+      margin: 0 calc(-1 * var(--container-padding));
       padding-left: var(--container-padding);
-      animation: marquee-act 38s linear infinite;
+      padding-right: var(--container-padding);
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
-    .activities-scroll__track:hover { animation-play-state: paused; }
-    @keyframes marquee-act {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    .activities-scroll::-webkit-scrollbar { display: none; }
     .activities-scroll .activity-card {
       flex: 0 0 clamp(260px, 22vw, 340px);
     }
@@ -1442,21 +1437,15 @@
        ВІДГУКИ
        ============================================ */
     .reviews-scroll {
-      overflow: hidden;
-      padding-bottom: 2rem;
-      margin-top: 3rem;
-    }
-    .reviews-scroll__track {
       display: flex;
       gap: 1.5rem;
-      width: max-content;
-      animation: marquee-rev 55s linear infinite;
+      overflow-x: auto;
+      padding-bottom: 2rem;
+      margin-top: 3rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }
-    .reviews-scroll__track:hover { animation-play-state: paused; }
-    @keyframes marquee-rev {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    .reviews-scroll::-webkit-scrollbar { display: none; }
     .review-card {
       flex: 0 0 360px;
       background: var(--color-bg-alt);
@@ -1724,7 +1713,6 @@
   </div>
 
   <div class="activities-scroll">
-    <div class="activities-scroll__track">
       <article class="activity-card">
         <div class="activity-card__num">01 / 07</div>
         <div class="activity-card__image">
@@ -1838,7 +1826,6 @@
         <h3 class="activity-card__title">Чайна церемонія</h3>
         <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
       </article>
-    </div>
   </div>
 
 </section>
@@ -2161,7 +2148,6 @@
   <h2 class="section-title" data-reveal data-reveal-delay="1">Що говорять про<br />інші кемпи Recreate.</h2>
 
   <div class="reviews-scroll">
-    <div class="reviews-scroll__track">
       <article class="review-card"><div class="review-card__handle">@_karina_hryhorenko_</div><p class="review-card__text">«Неможливо пояснити цей стан всередині — відчуття сповільнення та спокою. Так неочікувано знайти місце сили. Вдячна собі за сміливість іти в новий досвід. Життя після Recreate дійсно розділяється на до та після.»</p></article>
       <article class="review-card"><div class="review-card__handle">@vitaliia.masiuk</div><p class="review-card__text">«Мене часто запитують, чи ок їздити одній — я завжди відповідаю, що це найкращий досвід. Ти в колі людей, де всі приїхали за одним і тим же. Все сплановано до найменших деталей, і тобі не потрібно ні про що турбуватись. Тут завжди знаходжу споріднених людей.»</p></article>
       <article class="review-card"><div class="review-card__handle">@oksi_ksu26</div><p class="review-card__text">«Кемп, який я запам'ятаю назавжди. Очікування справдилися, але в ×100. Здобула мінімум 4 "вперше", які не залишаться на стадії спогадів. Локація, організація, активності — все настільки грамотно продумано.»</p></article>
@@ -2181,7 +2167,6 @@
       <article class="review-card" aria-hidden="true"><div class="review-card__handle">@cakes_svetlanasivkaeva</div><p class="review-card__text">«Це мій третій кемп з Recreate. Найкомфортніший, найкрутіші люди, неймовірні вечори, фото і відео на вищому рівні. Одне можу сказати точно — Recreate неймовірні.»</p></article>
       <article class="review-card" aria-hidden="true"><div class="review-card__handle">@vv.daria</div><p class="review-card__text">«Наш кемп нагадав мені справжнє дитинство — нові знайомства, непередбачувані пригоди, 0 турбот, розмови про все на світі і домовленості зустрітися знову. Випадкових людей не буває. Дуже вдячна за те, що ви зі мною сталися.»</p></article>
       <article class="review-card" aria-hidden="true"><div class="review-card__handle">@maria.filippovaa</div><p class="review-card__text">«Поїздка, після якої мій світ став іншим. Recreate — найкращий кемп, який об'єднує таких щирих і справжніх людей. Бути у моменті, залишити телефон осторонь — місце, де можна бути справжнім, відкритим, таким "своїм".»</p></article>
-    </div>
   </div>
 </section>
 
@@ -2347,7 +2332,56 @@
 
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 
-  // Scroll animation handled via CSS @keyframes (marquee-act, marquee-rev)
+  // Infinite auto-scroll — measured after window.load so images are sized correctly
+  function setupInfiniteScroll(selector, speed) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+
+    let loopWidth = 0;
+    let animId = null;
+    let paused = false;
+    let resumeTimer = null;
+
+    window.addEventListener('load', () => {
+      // Half of total scrollWidth = one full set of cards
+      loopWidth = el.scrollWidth / 2;
+
+      function tick() {
+        if (!paused) {
+          el.scrollLeft += speed;
+          if (el.scrollLeft >= loopWidth) {
+            el.scrollLeft -= loopWidth;
+          }
+        }
+        animId = requestAnimationFrame(tick);
+      }
+
+      function pauseAuto() { paused = true; clearTimeout(resumeTimer); }
+      function resumeAuto() { resumeTimer = setTimeout(() => { paused = false; }, 1800); }
+
+      el.addEventListener('mouseenter', pauseAuto);
+      el.addEventListener('mouseleave', resumeAuto);
+      el.addEventListener('touchstart', pauseAuto, { passive: true });
+      el.addEventListener('touchend', resumeAuto);
+      el.addEventListener('wheel', () => { pauseAuto(); resumeAuto(); }, { passive: true });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (!animId) animId = requestAnimationFrame(tick);
+          } else {
+            cancelAnimationFrame(animId);
+            animId = null;
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(el);
+    });
+  }
+
+  setupInfiniteScroll('.activities-scroll', 0.6);
+  setupInfiniteScroll('.reviews-scroll', 0.5);
 </script>
 
 </body>
