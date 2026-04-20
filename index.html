@@ -11,6 +11,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '4779463568947996');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=4779463568947996&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <style>
     /* ============================================
        DESIGN TOKENS — по ТЗ Recreate
@@ -1415,6 +1433,46 @@
     }
 
     /* ============================================
+       ВІДГУКИ
+       ============================================ */
+    .reviews-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 2rem;
+      margin-top: 3rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+    }
+    .reviews-scroll::-webkit-scrollbar { display: none; }
+    .reviews-scroll:active { cursor: grabbing; }
+    .review-card {
+      flex: 0 0 360px;
+      background: var(--color-bg-alt);
+      padding: 2rem 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      border-top: 2px solid var(--color-line-dark);
+    }
+    .review-card__handle {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.08em;
+    }
+    .review-card__text {
+      font-size: var(--font-body);
+      line-height: 1.72;
+      color: var(--color-text);
+      flex: 1;
+    }
+    @media (max-width: 640px) {
+      .review-card { flex: 0 0 82vw; }
+    }
+
+    /* ============================================
        TOUCH DEVICES — disable hover animations
        ============================================ */
     @media (hover: none) {
@@ -1556,10 +1614,10 @@
       <h2 class="essence__title" data-reveal>Не тур.<br />Не ретрит.<br />Не збори.</h2>
       <div class="essence__divider" data-reveal data-reveal-delay="1"></div>
       <p class="essence__text" data-reveal data-reveal-delay="2">
-        <strong>Recreate</strong> — це Mountain lifestyle camp у Шамоні на 8 днів для тих, хто хоче гір, але не хоче самостійно складати логістику, шукати гідів, бронювати житло й думати про харчування.
+        <strong>Mountain lifestyle camp</strong> — де все найкраще з гірського досвіду зібрано в 8 днів із максимальною турботою.
       </p>
       <p class="essence__text essence__text-secondary" data-reveal data-reveal-delay="3">
-        Ми закохані в гори й активний спорт — і хочемо передати цю закоханість тобі. Тут все вже продумано: шале, шеф-кухар, тренери, гіди, маршрути. Ти просто приїжджаєш і рухаєшся.
+        Ми закохані в гори й активний спорт — і хочемо передати цю закоханість тобі.
       </p>
     </div>
     <div class="essence__photos" data-reveal data-reveal-delay="1">
@@ -1584,7 +1642,7 @@
       <div class="emotion-card__body">
         <div class="emotion-card__label">01  ·  Місце</div>
         <h3 class="emotion-card__title">Шамоні — мекка альпінізму.</h3>
-        <p class="emotion-card__desc">Сюди їдуть найкращі з 1786 року. Ти просто приїхав раніше за багатьох своїх.</p>
+        <p class="emotion-card__desc">Сюди їдуть найкращі з 1786 року. Тут зародився альпінізм, тут фінішує UTMB, звідси видно Монблан — найвищу вершину Альп.</p>
       </div>
     </article>
 
@@ -1605,7 +1663,7 @@
       </div>
       <div class="emotion-card__body">
         <div class="emotion-card__label">03  ·  Контраст</div>
-        <h3 class="emotion-card__title">Граніт зранку — камін увечері.</h3>
+        <h3 class="emotion-card__title">Скелелазіння зранку — камін увечері.</h3>
         <p class="emotion-card__desc">Тіло вчиться перемикатися: напруга, потім тепло, тиша, вино. І так вісім днів.</p>
       </div>
     </article>
@@ -1629,7 +1687,7 @@
       <div class="emotion-card__body">
         <div class="emotion-card__label">05  ·  Турбота</div>
         <h3 class="emotion-card__title">Все вже продумано.</h3>
-        <p class="emotion-card__desc">Від трансферу до вечері. Єдине рішення за вісім днів — який десерт узяти після основного.</p>
+        <p class="emotion-card__desc">Ми піклуємось про комфорт кожного: програма, харчування, ритм дня і емоційний стан. Щоб ти міг повністю бути присутнім — в горах і в моменті.</p>
       </div>
     </article>
 
@@ -1733,7 +1791,7 @@
   <div class="chamonix__content">
     <h2 class="chamonix__title" data-reveal>Чому Шамоні.</h2>
     <p class="chamonix__text" data-reveal data-reveal-delay="1">
-      Тут зародився альпінізм. Звідси починається UTMB — найбільша трейл-гонка планети.
+      Тут зародився альпінізм. Звідси починається UTMB (Ultra-Trail du Mont-Blanc) — найбільша трейл-гонка планети.
       Пʼятнадцять хвилин від центру — і ти вже на висоті. Година від аеропорту Женеви. Монблан — перед очима щоранку.
     </p>
 
@@ -1782,7 +1840,7 @@
       <div class="env-pair__eyebrow eyebrow">Шеф-повар</div>
       <h3 class="env-pair__title">Свіжі локальні продукти.</h3>
       <p class="env-pair__text">
-        Один довгий стіл на 14. Сніданок і вечеря щодня. Не буфет на 200 людей, а їжа, яку готують саме для цієї групи.
+        Один довгий стіл на 14. Сніданки і вечері щодня. Свіжі локальні продукти — їжа, яку готують саме для вашої групи, саме сьогодні.
       </p>
     </div>
   </div>
@@ -1808,7 +1866,7 @@
       <div class="env-pair__eyebrow eyebrow">Турбота</div>
       <h3 class="env-pair__title">Все продумано до тебе.</h3>
       <p class="env-pair__text">
-        Трансфери, страховка, спорядження, маршрути, ритм дня, графік сну. Єдине, що від тебе — купити квиток у Женеву. Решту не думаєш.
+        Спорядження, маршрути, ритм дня, харчування, графік сну. Єдине, що від тебе — купити квиток у Женеву. Решту не думаєш.
       </p>
     </div>
   </div>
@@ -2002,7 +2060,7 @@
           <li>Гіди по трейлах та віаферратах</li>
           <li>Йога-інструктор · щоденні сесії</li>
           <li>Сауна щовечора</li>
-          <li>Професійна фото/відео зйомка</li>
+          <li>Репортажна зйомка</li>
           <li>Pre-camp підготовка · план тренувань</li>
           <li>Онбординг-дзвінок + знайомство групи</li>
           <li>After-camp follow-up</li>
@@ -2012,7 +2070,7 @@
         <div class="pricing__list-title">Не включено</div>
         <ul class="pricing__list pricing__list--no">
           <li>Авіаквитки</li>
-          <li>Трансфер Женева → Шамоні (можемо організувати груповий)</li>
+          <li>Трансфер Женева → Шамоні</li>
           <li>Обіди (вільний формат)</li>
           <li>Особисте спорядження (дамо чек-лист)</li>
           <li>Спорядження для віафератти (каска, обв'язка, вусики — оренда на місці)</li>
@@ -2034,7 +2092,63 @@
 </section>
 
 <!-- ============================================
-     13. FAQ
+     13. ВІДГУКИ
+     ============================================ -->
+<section class="container" id="reviews">
+  <h2 class="section-title" data-reveal data-reveal-delay="1">Що говорять про<br />інші кемпи Recreate.</h2>
+
+  <div class="reviews-scroll">
+
+    <article class="review-card" data-reveal>
+      <div class="review-card__handle">@_karina_hryhorenko_</div>
+      <p class="review-card__text">«Неможливо пояснити цей стан всередині — відчуття сповільнення та спокою. Так неочікувано знайти місце сили. Вдячна собі за сміливість іти в новий досвід. Життя після Recreate дійсно розділяється на до та після.»</p>
+    </article>
+
+    <article class="review-card" data-reveal data-reveal-delay="1">
+      <div class="review-card__handle">@vitaliia.masiuk</div>
+      <p class="review-card__text">«Мене часто запитують, чи ок їздити одній — я завжди відповідаю, що це найкращий досвід. Ти в колі людей, де всі приїхали за одним і тим же. Все сплановано до найменших деталей, і тобі не потрібно ні про що турбуватись. Тут завжди знаходжу споріднених людей.»</p>
+    </article>
+
+    <article class="review-card" data-reveal data-reveal-delay="2">
+      <div class="review-card__handle">@oksi_ksu26</div>
+      <p class="review-card__text">«Кемп, який я запам'ятаю назавжди. Очікування справдилися, але в ×100. Здобула мінімум 4 "вперше", які не залишаться на стадії спогадів. Локація, організація, активності — все настільки грамотно продумано.»</p>
+    </article>
+
+    <article class="review-card" data-reveal>
+      <div class="review-card__handle">@itsyourritch</div>
+      <p class="review-card__text">«Дякую за неймовірний досвід і можливість мати тишу в голові та величезний прилив енергії в тілі. Тиждень такий насичений і приємний, що навіть не встигаєш згадати "який сьогодні день" — це така цінна допомога в житті.»</p>
+    </article>
+
+    <article class="review-card" data-reveal data-reveal-delay="1">
+      <div class="review-card__handle">@dahi_hi_hi</div>
+      <p class="review-card__text">«Неможливо описати відчуття за тиждень в Recreate — це просто треба спробувати. Група зовсім незнайомих, які стали твоєю підтримкою, опорою, подругами. Все це — досвід, і це було неочікувано класно.»</p>
+    </article>
+
+    <article class="review-card" data-reveal data-reveal-delay="2">
+      <div class="review-card__handle">@lisaglukhova</div>
+      <p class="review-card__text">«Вдячності Recreate — дякую, що розбудили. Ввечері вдягаєш затишний худі, заварюєш чай, підбираєш ноги під себе. І єдина твоя проблема — знайти сили рухатись далі.»</p>
+    </article>
+
+    <article class="review-card" data-reveal>
+      <div class="review-card__handle">@cakes_svetlanasivkaeva</div>
+      <p class="review-card__text">«Це мій третій кемп з Recreate. Найкомфортніший, найкрутіші люди, неймовірні вечори, фото і відео на вищому рівні. Одне можу сказати точно — Recreate неймовірні.»</p>
+    </article>
+
+    <article class="review-card" data-reveal data-reveal-delay="1">
+      <div class="review-card__handle">@vv.daria</div>
+      <p class="review-card__text">«Наш кемп нагадав мені справжнє дитинство — нові знайомства, непередбачувані пригоди, 0 турбот, розмови про все на світі і домовленості зустрітися знову. Випадкових людей не буває. Дуже вдячна за те, що ви зі мною сталися.»</p>
+    </article>
+
+    <article class="review-card" data-reveal data-reveal-delay="2">
+      <div class="review-card__handle">@maria.filippovaa</div>
+      <p class="review-card__text">«Поїздка, після якої мій світ став іншим. Recreate — найкращий кемп, який об'єднує таких щирих і справжніх людей. Бути у моменті, залишити телефон осторонь — місце, де можна бути справжнім, відкритим, таким "своїм".»</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================
+     14. FAQ
      ============================================ -->
 <section class="container" id="faq">
   <h2 class="section-title" data-reveal data-reveal-delay="1">Відповідаємо<br />на питання.</h2>
@@ -2124,17 +2238,6 @@
       </div>
     </div>
 
-    <div class="faq__item">
-      <button class="faq__question">
-        <span>Як повернути гроші, якщо не зможу поїхати?</span>
-        <span class="faq__icon"></span>
-      </button>
-      <div class="faq__answer">
-        <div class="faq__answer-inner">
-          Передоплата €1 000 повертається, якщо скасовуєш за 60+ днів до старту. Після — залишається як кредит на наступний кемп Recreate. Повну політику скасування надішлемо перед бронюванням.
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
