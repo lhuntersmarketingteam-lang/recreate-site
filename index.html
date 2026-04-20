@@ -1642,7 +1642,7 @@
       <div class="emotion-card__body">
         <div class="emotion-card__label">01  ·  Місце</div>
         <h3 class="emotion-card__title">Шамоні — мекка альпінізму.</h3>
-        <p class="emotion-card__desc">Сюди їдуть найкращі з 1786 року. Тут зародився альпінізм, тут фінішує UTMB (Ультра-трейл навколо Монблану), звідси видно Монблан — найвищу вершину Альп.</p>
+        <p class="emotion-card__desc">Сюди їдуть найкращі з 1786 року. Тут зародився альпінізм, тут фінішує UTMB — найвідоміша гірська ультра-гонка планети. Звідси видно Монблан — найвищу вершину Альп.</p>
       </div>
     </article>
 
@@ -1698,7 +1698,7 @@
       <div class="emotion-card__body">
         <div class="emotion-card__label">06  ·  Earned confidence</div>
         <h3 class="emotion-card__title">Впевненість, яку не дають слова.</h3>
-        <p class="emotion-card__desc">Ти був на скелі. Ти пробіг тропами UTMB (Ультра-трейл навколо Монблану). Це вже не мотивація — це твій досвід.</p>
+        <p class="emotion-card__desc">Ти був на скелі. Ти пробіг тропами UTMB — легендарної трейлової гонки навколо Монблану. Це вже не мотивація — це твій досвід.</p>
       </div>
     </article>
   </div>
@@ -1720,7 +1720,7 @@
         <img src="activity-trail.jpg" alt="Хайкери з рюкзаками на альпійській тропі" loading="lazy" />
       </div>
       <h3 class="activity-card__title">Трейл</h3>
-      <p class="activity-card__desc">По справжніх тропах UTMB (Ультра-трейл навколо Монблану). Бігти чи йти — вирішуєш ти.</p>
+      <p class="activity-card__desc">По справжніх тропах UTMB — найпрестижнішої трейлової гонки Альп. Бігти чи йти — вирішуєш ти.</p>
     </article>
 
     <article class="activity-card" data-reveal data-reveal-delay="1">
@@ -1791,7 +1791,7 @@
   <div class="chamonix__content">
     <h2 class="chamonix__title" data-reveal>Чому Шамоні.</h2>
     <p class="chamonix__text" data-reveal data-reveal-delay="1">
-      Тут зародився альпінізм. Звідси починається UTMB (Ультра-трейл навколо Монблану) — найбільша трейл-гонка планети.
+      Тут зародився альпінізм. Звідси стартує UTMB — найбільша трейлова гонка планети, 171 км навколо Монблану.
       Пʼятнадцять хвилин від центру — і ти вже на висоті. Година від аеропорту Женеви. Монблан — перед очима щоранку.
     </p>
 
@@ -1929,7 +1929,7 @@
       <div class="program__day-label">День 02</div>
       <div>
         <h3 class="program__day-title">Трейл по тропах UTMB.</h3>
-        <p class="program__day-desc">Ті самі тропи UTMB (Ультра-трейл навколо Монблану), якими щороку в серпні біжить півсвіту. Ти — просто сьогодні.</p>
+        <p class="program__day-desc">Ті самі тропи, якими щороку в серпні біжить UTMB — найбільша гірська ультра-гонка світу. Ти — просто сьогодні.</p>
       </div>
     </div>
     <div class="program__day" data-reveal>
@@ -2314,7 +2314,7 @@
     const container = document.querySelector(selector);
     if (!container) return;
 
-    // Clone all children for seamless loop
+    // Clone all original children for seamless loop
     const origItems = Array.from(container.children);
     origItems.forEach(item => {
       const clone = item.cloneNode(true);
@@ -2325,14 +2325,17 @@
     let animId = null;
     let paused = false;
     let resumeTimer = null;
-    const halfWidth = container.scrollWidth / 2;
+    let loopWidth = 0; // measured lazily on first tick after render
 
     function tick() {
+      // Measure lazily so the browser has already laid out clones
+      if (!loopWidth) loopWidth = container.scrollWidth / 2;
+
       if (!paused) {
         container.scrollLeft += speed;
-        // When we've scrolled through the first copy, jump back seamlessly
-        if (container.scrollLeft >= halfWidth) {
-          container.scrollLeft -= halfWidth;
+        // Jump back by exactly one copy — seamless
+        if (container.scrollLeft >= loopWidth) {
+          container.scrollLeft -= loopWidth;
         }
       }
       animId = requestAnimationFrame(tick);
@@ -2352,7 +2355,7 @@
     container.addEventListener('touchend', scheduleResume);
     container.addEventListener('wheel', () => { pauseAuto(); scheduleResume(); }, { passive: true });
 
-    // Start only when visible
+    // Start only when section is visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
