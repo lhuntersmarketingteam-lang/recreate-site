@@ -595,16 +595,22 @@
       background: var(--color-bg);
     }
     .activities-scroll {
-      display: flex;
-      gap: 1.25rem;
-      overflow-x: auto;
+      overflow: hidden;
       padding-bottom: 2rem;
       margin: 0 calc(-1 * var(--container-padding));
-      padding-left: var(--container-padding);
-      padding-right: var(--container-padding);
-      scrollbar-width: none;
     }
-    .activities-scroll::-webkit-scrollbar { display: none; }
+    .activities-scroll__track {
+      display: flex;
+      gap: 1.25rem;
+      width: max-content;
+      padding-left: var(--container-padding);
+      animation: marquee-act 38s linear infinite;
+    }
+    .activities-scroll__track:hover { animation-play-state: paused; }
+    @keyframes marquee-act {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
     .activities-scroll .activity-card {
       flex: 0 0 clamp(260px, 22vw, 340px);
     }
@@ -1436,17 +1442,21 @@
        ВІДГУКИ
        ============================================ */
     .reviews-scroll {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
+      overflow: hidden;
       padding-bottom: 2rem;
       margin-top: 3rem;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      cursor: grab;
     }
-    .reviews-scroll::-webkit-scrollbar { display: none; }
-    .reviews-scroll:active { cursor: grabbing; }
+    .reviews-scroll__track {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      animation: marquee-rev 55s linear infinite;
+    }
+    .reviews-scroll__track:hover { animation-play-state: paused; }
+    @keyframes marquee-rev {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
     .review-card {
       flex: 0 0 360px;
       background: var(--color-bg-alt);
@@ -1714,68 +1724,121 @@
   </div>
 
   <div class="activities-scroll">
-    <article class="activity-card" data-reveal>
-      <div class="activity-card__num">01 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-trail.jpg" alt="Хайкери з рюкзаками на альпійській тропі" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Трейл</h3>
-      <p class="activity-card__desc">По справжніх тропах UTMB — найпрестижнішої трейлової гонки Альп. Бігти чи йти — вирішуєш ти.</p>
-    </article>
-
-    <article class="activity-card" data-reveal data-reveal-delay="1">
-      <div class="activity-card__num">02 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-hiking-new.jpg" alt="Зелений хребет з гірською стежкою" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Хайкінг</h3>
-      <p class="activity-card__desc">Від панорамних маршрутів до ночівлі у хижині на 2 700 м.</p>
-    </article>
-
-    <article class="activity-card" data-reveal data-reveal-delay="2">
-      <div class="activity-card__num">03 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-climbing.jpg" alt="Скелелазіння — людина на граніті" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Скелелазіння</h3>
-      <p class="activity-card__desc">Граніт Шамоні. З нуля, з інструктором, зі страховкою.</p>
-    </article>
-
-    <article class="activity-card" data-reveal data-reveal-delay="3">
-      <div class="activity-card__num">04 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-viaferrata2.jpg" alt="Віаферрата — вид зверху на ноги і спорядження групи" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Віаферрата</h3>
-      <p class="activity-card__desc">Сталевий трос. Ущелина. Відчуття — на все життя.</p>
-    </article>
-
-    <article class="activity-card" data-reveal>
-      <div class="activity-card__num">05 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-strength.jpg" alt="Силові тренування на свіжому повітрі" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Силові</h3>
-      <p class="activity-card__desc">Короткі сесії на свіжому повітрі — тримають тіло між навантаженнями.</p>
-    </article>
-
-    <article class="activity-card" data-reveal data-reveal-delay="1">
-      <div class="activity-card__num">06 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-yoga-new.jpg" alt="Йога та медитація — поза лотоса" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Йога · Медитація</h3>
-      <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
-    </article>
-
-    <article class="activity-card" data-reveal data-reveal-delay="2">
-      <div class="activity-card__num">07 / 07</div>
-      <div class="activity-card__image">
-        <img src="activity-tea.jpg" alt="Чайна церемонія — розлив чаю з парою" loading="lazy" />
-      </div>
-      <h3 class="activity-card__title">Чайна церемонія</h3>
-      <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
-    </article>
+    <div class="activities-scroll__track">
+      <article class="activity-card">
+        <div class="activity-card__num">01 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-trail.jpg" alt="Хайкери з рюкзаками на альпійській тропі" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Трейл</h3>
+        <p class="activity-card__desc">По справжніх тропах UTMB — найпрестижнішої трейлової гонки Альп. Бігти чи йти — вирішуєш ти.</p>
+      </article>
+      <article class="activity-card">
+        <div class="activity-card__num">02 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-hiking-new.jpg" alt="Зелений хребет з гірською стежкою" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Хайкінг</h3>
+        <p class="activity-card__desc">Від панорамних маршрутів до ночівлі у хижині на 2 700 м.</p>
+      </article>
+      <article class="activity-card">
+        <div class="activity-card__num">03 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-climbing.jpg" alt="Скелелазіння — людина на граніті" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Скелелазіння</h3>
+        <p class="activity-card__desc">Граніт Шамоні. З нуля, з інструктором, зі страховкою.</p>
+      </article>
+      <article class="activity-card">
+        <div class="activity-card__num">04 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-viaferrata2.jpg" alt="Віаферрата — вид зверху на ноги і спорядження групи" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Віаферрата</h3>
+        <p class="activity-card__desc">Сталевий трос. Ущелина. Відчуття — на все життя.</p>
+      </article>
+      <article class="activity-card">
+        <div class="activity-card__num">05 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-strength.jpg" alt="Силові тренування на свіжому повітрі" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Силові</h3>
+        <p class="activity-card__desc">Короткі сесії на свіжому повітрі — тримають тіло між навантаженнями.</p>
+      </article>
+      <article class="activity-card">
+        <div class="activity-card__num">06 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-yoga-new.jpg" alt="Йога та медитація — поза лотоса" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Йога · Медитація</h3>
+        <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
+      </article>
+      <article class="activity-card">
+        <div class="activity-card__num">07 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-tea.jpg" alt="Чайна церемонія — розлив чаю з парою" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Чайна церемонія</h3>
+        <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
+      </article>
+      <!-- Duplicate set for seamless loop -->
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">01 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-trail.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Трейл</h3>
+        <p class="activity-card__desc">По справжніх тропах UTMB — найпрестижнішої трейлової гонки Альп. Бігти чи йти — вирішуєш ти.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">02 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-hiking-new.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Хайкінг</h3>
+        <p class="activity-card__desc">Від панорамних маршрутів до ночівлі у хижині на 2 700 м.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">03 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-climbing.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Скелелазіння</h3>
+        <p class="activity-card__desc">Граніт Шамоні. З нуля, з інструктором, зі страховкою.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">04 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-viaferrata2.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Віаферрата</h3>
+        <p class="activity-card__desc">Сталевий трос. Ущелина. Відчуття — на все життя.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">05 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-strength.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Силові</h3>
+        <p class="activity-card__desc">Короткі сесії на свіжому повітрі — тримають тіло між навантаженнями.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">06 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-yoga-new.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Йога · Медитація</h3>
+        <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">07 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-tea.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Чайна церемонія</h3>
+        <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
+      </article>
+    </div>
   </div>
 
 </section>
@@ -2098,52 +2161,27 @@
   <h2 class="section-title" data-reveal data-reveal-delay="1">Що говорять про<br />інші кемпи Recreate.</h2>
 
   <div class="reviews-scroll">
-
-    <article class="review-card" data-reveal>
-      <div class="review-card__handle">@_karina_hryhorenko_</div>
-      <p class="review-card__text">«Неможливо пояснити цей стан всередині — відчуття сповільнення та спокою. Так неочікувано знайти місце сили. Вдячна собі за сміливість іти в новий досвід. Життя після Recreate дійсно розділяється на до та після.»</p>
-    </article>
-
-    <article class="review-card" data-reveal data-reveal-delay="1">
-      <div class="review-card__handle">@vitaliia.masiuk</div>
-      <p class="review-card__text">«Мене часто запитують, чи ок їздити одній — я завжди відповідаю, що це найкращий досвід. Ти в колі людей, де всі приїхали за одним і тим же. Все сплановано до найменших деталей, і тобі не потрібно ні про що турбуватись. Тут завжди знаходжу споріднених людей.»</p>
-    </article>
-
-    <article class="review-card" data-reveal data-reveal-delay="2">
-      <div class="review-card__handle">@oksi_ksu26</div>
-      <p class="review-card__text">«Кемп, який я запам'ятаю назавжди. Очікування справдилися, але в ×100. Здобула мінімум 4 "вперше", які не залишаться на стадії спогадів. Локація, організація, активності — все настільки грамотно продумано.»</p>
-    </article>
-
-    <article class="review-card" data-reveal>
-      <div class="review-card__handle">@itsyourritch</div>
-      <p class="review-card__text">«Дякую за неймовірний досвід і можливість мати тишу в голові та величезний прилив енергії в тілі. Тиждень такий насичений і приємний, що навіть не встигаєш згадати "який сьогодні день" — це така цінна допомога в житті.»</p>
-    </article>
-
-    <article class="review-card" data-reveal data-reveal-delay="1">
-      <div class="review-card__handle">@dahi_hi_hi</div>
-      <p class="review-card__text">«Неможливо описати відчуття за тиждень в Recreate — це просто треба спробувати. Група зовсім незнайомих, які стали твоєю підтримкою, опорою, подругами. Все це — досвід, і це було неочікувано класно.»</p>
-    </article>
-
-    <article class="review-card" data-reveal data-reveal-delay="2">
-      <div class="review-card__handle">@lisaglukhova</div>
-      <p class="review-card__text">«Вдячності Recreate — дякую, що розбудили. Ввечері вдягаєш затишний худі, заварюєш чай, підбираєш ноги під себе. І єдина твоя проблема — знайти сили рухатись далі.»</p>
-    </article>
-
-    <article class="review-card" data-reveal>
-      <div class="review-card__handle">@cakes_svetlanasivkaeva</div>
-      <p class="review-card__text">«Це мій третій кемп з Recreate. Найкомфортніший, найкрутіші люди, неймовірні вечори, фото і відео на вищому рівні. Одне можу сказати точно — Recreate неймовірні.»</p>
-    </article>
-
-    <article class="review-card" data-reveal data-reveal-delay="1">
-      <div class="review-card__handle">@vv.daria</div>
-      <p class="review-card__text">«Наш кемп нагадав мені справжнє дитинство — нові знайомства, непередбачувані пригоди, 0 турбот, розмови про все на світі і домовленості зустрітися знову. Випадкових людей не буває. Дуже вдячна за те, що ви зі мною сталися.»</p>
-    </article>
-
-    <article class="review-card" data-reveal data-reveal-delay="2">
-      <div class="review-card__handle">@maria.filippovaa</div>
-      <p class="review-card__text">«Поїздка, після якої мій світ став іншим. Recreate — найкращий кемп, який об'єднує таких щирих і справжніх людей. Бути у моменті, залишити телефон осторонь — місце, де можна бути справжнім, відкритим, таким "своїм".»</p>
-    </article>
-
+    <div class="reviews-scroll__track">
+      <article class="review-card"><div class="review-card__handle">@_karina_hryhorenko_</div><p class="review-card__text">«Неможливо пояснити цей стан всередині — відчуття сповільнення та спокою. Так неочікувано знайти місце сили. Вдячна собі за сміливість іти в новий досвід. Життя після Recreate дійсно розділяється на до та після.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@vitaliia.masiuk</div><p class="review-card__text">«Мене часто запитують, чи ок їздити одній — я завжди відповідаю, що це найкращий досвід. Ти в колі людей, де всі приїхали за одним і тим же. Все сплановано до найменших деталей, і тобі не потрібно ні про що турбуватись. Тут завжди знаходжу споріднених людей.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@oksi_ksu26</div><p class="review-card__text">«Кемп, який я запам'ятаю назавжди. Очікування справдилися, але в ×100. Здобула мінімум 4 "вперше", які не залишаться на стадії спогадів. Локація, організація, активності — все настільки грамотно продумано.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@itsyourritch</div><p class="review-card__text">«Дякую за неймовірний досвід і можливість мати тишу в голові та величезний прилив енергії в тілі. Тиждень такий насичений і приємний, що навіть не встигаєш згадати "який сьогодні день" — це така цінна допомога в житті.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@dahi_hi_hi</div><p class="review-card__text">«Неможливо описати відчуття за тиждень в Recreate — це просто треба спробувати. Група зовсім незнайомих, які стали твоєю підтримкою, опорою, подругами. Все це — досвід, і це було неочікувано класно.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@lisaglukhova</div><p class="review-card__text">«Вдячності Recreate — дякую, що розбудили. Ввечері вдягаєш затишний худі, заварюєш чай, підбираєш ноги під себе. І єдина твоя проблема — знайти сили рухатись далі.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@cakes_svetlanasivkaeva</div><p class="review-card__text">«Це мій третій кемп з Recreate. Найкомфортніший, найкрутіші люди, неймовірні вечори, фото і відео на вищому рівні. Одне можу сказати точно — Recreate неймовірні.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@vv.daria</div><p class="review-card__text">«Наш кемп нагадав мені справжнє дитинство — нові знайомства, непередбачувані пригоди, 0 турбот, розмови про все на світі і домовленості зустрітися знову. Випадкових людей не буває. Дуже вдячна за те, що ви зі мною сталися.»</p></article>
+      <article class="review-card"><div class="review-card__handle">@maria.filippovaa</div><p class="review-card__text">«Поїздка, після якої мій світ став іншим. Recreate — найкращий кемп, який об'єднує таких щирих і справжніх людей. Бути у моменті, залишити телефон осторонь — місце, де можна бути справжнім, відкритим, таким "своїм".»</p></article>
+      <!-- Duplicate set for seamless loop -->
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@_karina_hryhorenko_</div><p class="review-card__text">«Неможливо пояснити цей стан всередині — відчуття сповільнення та спокою. Так неочікувано знайти місце сили. Вдячна собі за сміливість іти в новий досвід. Життя після Recreate дійсно розділяється на до та після.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@vitaliia.masiuk</div><p class="review-card__text">«Мене часто запитують, чи ок їздити одній — я завжди відповідаю, що це найкращий досвід. Ти в колі людей, де всі приїхали за одним і тим же. Все сплановано до найменших деталей, і тобі не потрібно ні про що турбуватись. Тут завжди знаходжу споріднених людей.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@oksi_ksu26</div><p class="review-card__text">«Кемп, який я запам'ятаю назавжди. Очікування справдилися, але в ×100. Здобула мінімум 4 "вперше", які не залишаться на стадії спогадів. Локація, організація, активності — все настільки грамотно продумано.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@itsyourritch</div><p class="review-card__text">«Дякую за неймовірний досвід і можливість мати тишу в голові та величезний прилив енергії в тілі. Тиждень такий насичений і приємний, що навіть не встигаєш згадати "який сьогодні день" — це така цінна допомога в житті.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@dahi_hi_hi</div><p class="review-card__text">«Неможливо описати відчуття за тиждень в Recreate — це просто треба спробувати. Група зовсім незнайомих, які стали твоєю підтримкою, опорою, подругами. Все це — досвід, і це було неочікувано класно.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@lisaglukhova</div><p class="review-card__text">«Вдячності Recreate — дякую, що розбудили. Ввечері вдягаєш затишний худі, заварюєш чай, підбираєш ноги під себе. І єдина твоя проблема — знайти сили рухатись далі.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@cakes_svetlanasivkaeva</div><p class="review-card__text">«Це мій третій кемп з Recreate. Найкомфортніший, найкрутіші люди, неймовірні вечори, фото і відео на вищому рівні. Одне можу сказати точно — Recreate неймовірні.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@vv.daria</div><p class="review-card__text">«Наш кемп нагадав мені справжнє дитинство — нові знайомства, непередбачувані пригоди, 0 турбот, розмови про все на світі і домовленості зустрітися знову. Випадкових людей не буває. Дуже вдячна за те, що ви зі мною сталися.»</p></article>
+      <article class="review-card" aria-hidden="true"><div class="review-card__handle">@maria.filippovaa</div><p class="review-card__text">«Поїздка, після якої мій світ став іншим. Recreate — найкращий кемп, який об'єднує таких щирих і справжніх людей. Бути у моменті, залишити телефон осторонь — місце, де можна бути справжнім, відкритим, таким "своїм".»</p></article>
+    </div>
   </div>
 </section>
 
@@ -2309,50 +2347,7 @@
 
   document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
 
-  // Auto-scroll (simple, resets to start when end reached)
-  function setupAutoScroll(selector, speed) {
-    const container = document.querySelector(selector);
-    if (!container) return;
-
-    let animId = null;
-    let paused = false;
-    let resumeTimer = null;
-
-    function tick() {
-      if (!paused) {
-        container.scrollLeft += speed;
-        if (container.scrollLeft >= container.scrollWidth - container.clientWidth - 1) {
-          container.scrollLeft = 0;
-        }
-      }
-      animId = requestAnimationFrame(tick);
-    }
-
-    function pauseAuto() { paused = true; clearTimeout(resumeTimer); }
-    function scheduleResume() { resumeTimer = setTimeout(() => { paused = false; }, 1800); }
-
-    container.addEventListener('mouseenter', pauseAuto);
-    container.addEventListener('mouseleave', scheduleResume);
-    container.addEventListener('touchstart', pauseAuto, { passive: true });
-    container.addEventListener('touchend', scheduleResume);
-    container.addEventListener('wheel', () => { pauseAuto(); scheduleResume(); }, { passive: true });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!animId) animId = requestAnimationFrame(tick);
-        } else {
-          cancelAnimationFrame(animId);
-          animId = null;
-        }
-      });
-    }, { threshold: 0.1 });
-
-    observer.observe(container);
-  }
-
-  setupAutoScroll('.activities-scroll', 0.6);
-  setupAutoScroll('.reviews-scroll', 0.5);
+  // Scroll animation handled via CSS @keyframes (marquee-act, marquee-rev)
 </script>
 
 </body>
