@@ -196,12 +196,18 @@
       text-transform: uppercase;
       color: #F8F6F1;
       border-bottom: 1px solid rgba(248, 246, 241, 0.6);
-      padding-bottom: 2px;
-      transition: color 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+      padding: 0.45rem 0 0.45rem 0;
+      transition: color 0.4s var(--ease-out), background 0.4s var(--ease-out), border-color 0.4s var(--ease-out), padding 0.4s var(--ease-out), border-radius 0.4s var(--ease-out);
     }
     .nav.scrolled .nav__cta {
-      color: var(--color-text);
-      border-bottom-color: var(--color-text);
+      color: var(--color-bg);
+      background: var(--color-accent);
+      border-bottom-color: transparent;
+      border-radius: 2px;
+      padding: 0.45rem 1rem;
+    }
+    .nav.scrolled .nav__cta:hover {
+      background: var(--color-text);
     }
 
     @media (max-width: 768px) {
@@ -1535,6 +1541,27 @@
     .booking-form__input::placeholder {
       color: var(--color-text-subtle);
     }
+    .booking-form__phone-wrap {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--color-line-dark);
+      background: transparent;
+    }
+    .booking-form__phone-prefix {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-text);
+      padding: 1rem 0 1rem 1.25rem;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .booking-form__phone-wrap .booking-form__input {
+      border-bottom: none;
+      padding-left: 0.375rem;
+    }
+    .booking-form__phone-wrap:focus-within {
+      border-bottom-color: var(--color-accent);
+    }
     .booking-form__submit {
       margin-top: 0.5rem;
       align-self: flex-start;
@@ -2000,7 +2027,7 @@
     </div>
     <div class="env-pair__content" data-reveal data-reveal-delay="1">
       <div class="env-pair__eyebrow eyebrow">Турбота</div>
-      <h3 class="env-pair__title">Все продумано до тебе.</h3>
+      <h3 class="env-pair__title">Все продумано для тебе.</h3>
       <p class="env-pair__text">
         Спорядження, маршрути, ритм дня, харчування, графік сну. Єдине, що від тебе — купити квиток у Женеву. Про решту не думаєш.
       </p>
@@ -2370,7 +2397,10 @@
         </div>
         <div class="booking-form__field">
           <label class="booking-form__label">Номер телефону</label>
-          <input type="tel" name="phone" class="booking-form__input" placeholder="+380 __ ___ __ __" required />
+          <div class="booking-form__phone-wrap">
+            <span class="booking-form__phone-prefix">+380</span>
+            <input type="tel" name="phone" class="booking-form__input" placeholder="__ ___ __ __" maxlength="12" required />
+          </div>
         </div>
         <div class="booking-form__field">
           <label class="booking-form__label">Нік у Telegram</label>
@@ -2537,16 +2567,33 @@
 
   const bookingForm = document.getElementById('the-booking-form');
   if (bookingForm) {
+    // Telegram: авто-додає @ якщо забули
+    const tgInput = bookingForm.querySelector('[name="telegram"]');
+    tgInput.addEventListener('blur', () => {
+      const val = tgInput.value.trim();
+      if (val && !val.startsWith('@')) tgInput.value = '@' + val;
+    });
+
     bookingForm.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      const tgVal = tgInput.value.trim();
+      if (!tgVal.startsWith('@') || tgVal.length < 2) {
+        tgInput.setCustomValidity('Нік повинен починатись з @');
+        tgInput.reportValidity();
+        return;
+      }
+      tgInput.setCustomValidity('');
+
       const btn = bookingForm.querySelector('button[type="submit"]');
       btn.innerHTML = 'Відправляємо… <span class="btn-primary__arrow">→</span>';
       btn.disabled = true;
 
+      const phoneDigits = bookingForm.querySelector('[name="phone"]').value.trim().replace(/\s/g, '');
       const data = {
         name:     bookingForm.querySelector('[name="name"]').value.trim(),
-        phone:    bookingForm.querySelector('[name="phone"]').value.trim(),
-        telegram: bookingForm.querySelector('[name="telegram"]').value.trim(),
+        phone:    '+380' + phoneDigits,
+        telegram: tgVal,
       };
 
       // fire-and-forget з keepalive — працює навіть на повільному мобільному

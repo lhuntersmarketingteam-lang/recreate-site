@@ -156,6 +156,19 @@
       transition: transform 0.3s;
     }
     .thankyou__back:hover::before { transform: translateX(-4px); }
+    .thankyou__tg {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+      transition: opacity 0.3s;
+    }
+    .thankyou__tg:hover { opacity: 0.7; }
 
     @media (max-width: 768px) {
       .thankyou { grid-template-columns: 1fr; }
@@ -181,6 +194,9 @@
       Зовсім скоро ми зв'яжемося з тобою — і разом визначимо, чи це саме твоє.
     </p>
     <div class="thankyou__divider"></div>
+    <a href="https://t.me/myrecreate?text=Привіт! Я залишив заявку на Recreate Mountain Camp і маю питання 🏔" target="_blank" class="thankyou__tg">
+      Залишились питання? Пишіть нам →
+    </a>
     <p class="thankyou__meta">June 6–13, 2026 · Chamonix, France</p>
     <a href="index.html" class="thankyou__back">Повернутись на сайт</a>
   </div>
