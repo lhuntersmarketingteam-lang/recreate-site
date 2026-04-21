@@ -1543,25 +1543,48 @@
     }
     .booking-form__phone-wrap {
       display: flex;
-      align-items: center;
-      border-bottom: 1px solid var(--color-line-dark);
-      background: transparent;
+      align-items: stretch;
+      background: var(--color-bg);
+      border: 1px solid var(--color-line);
+      border-bottom: 2px solid var(--color-text);
+      transition: border-color 0.3s var(--ease-out);
     }
     .booking-form__phone-prefix {
       font-family: var(--font-body);
       font-size: 1rem;
-      color: var(--color-text);
-      padding: 1rem 0 1rem 1.25rem;
+      color: var(--color-text-muted);
+      padding: 1rem 0.75rem 1rem 1.25rem;
       white-space: nowrap;
       user-select: none;
+      border-right: 1px solid var(--color-line);
+      display: flex;
+      align-items: center;
     }
     .booking-form__phone-wrap .booking-form__input {
+      border: none;
       border-bottom: none;
-      padding-left: 0.375rem;
+      padding-left: 0.75rem;
+      flex: 1;
     }
     .booking-form__phone-wrap:focus-within {
+      border-color: var(--color-accent);
       border-bottom-color: var(--color-accent);
     }
+    .booking-form__phone-wrap.is-error {
+      border-color: #C0392B;
+      border-bottom-color: #C0392B;
+    }
+    .booking-form__input.is-error {
+      border-color: #C0392B;
+      border-bottom-color: #C0392B;
+    }
+    .booking-form__error {
+      font-size: 0.75rem;
+      color: #C0392B;
+      margin-top: 0.35rem;
+      display: none;
+    }
+    .booking-form__error.visible { display: block; }
     .booking-form__submit {
       margin-top: 0.5rem;
       align-self: flex-start;
@@ -2397,14 +2420,16 @@
         </div>
         <div class="booking-form__field">
           <label class="booking-form__label">Номер телефону</label>
-          <div class="booking-form__phone-wrap">
+          <div class="booking-form__phone-wrap" id="phone-wrap">
             <span class="booking-form__phone-prefix">+380</span>
-            <input type="tel" name="phone" class="booking-form__input" placeholder="__ ___ __ __" maxlength="12" required />
+            <input type="tel" name="phone" class="booking-form__input" placeholder="XX XXX XX XX" maxlength="12" />
           </div>
+          <span class="booking-form__error" id="phone-error">Введи коректний номер — 9 цифр після +380</span>
         </div>
         <div class="booking-form__field">
           <label class="booking-form__label">Нік у Telegram</label>
-          <input type="text" name="telegram" class="booking-form__input" placeholder="@username" required />
+          <input type="text" name="telegram" class="booking-form__input" placeholder="@username" />
+          <span class="booking-form__error" id="tg-error">Нік повинен починатись з @ і мати хоча б 2 символи</span>
         </div>
         <button type="submit" class="btn-primary btn-primary--dark booking-form__submit">
           Відправити заявку
@@ -2567,8 +2592,26 @@
 
   const bookingForm = document.getElementById('the-booking-form');
   if (bookingForm) {
+    const phoneInput  = bookingForm.querySelector('[name="phone"]');
+    const phoneWrap   = document.getElementById('phone-wrap');
+    const phoneError  = document.getElementById('phone-error');
+    const tgInput     = bookingForm.querySelector('[name="telegram"]');
+    const tgError     = document.getElementById('tg-error');
+
+    function showError(input, wrap, errorEl) {
+      (wrap || input).classList.add('is-error');
+      errorEl.classList.add('visible');
+    }
+    function clearError(input, wrap, errorEl) {
+      (wrap || input).classList.remove('is-error');
+      errorEl.classList.remove('visible');
+    }
+
+    // Очищаємо помилку при введенні
+    phoneInput.addEventListener('input', () => clearError(phoneInput, phoneWrap, phoneError));
+    tgInput.addEventListener('input', () => clearError(tgInput, null, tgError));
+
     // Telegram: авто-додає @ якщо забули
-    const tgInput = bookingForm.querySelector('[name="telegram"]');
     tgInput.addEventListener('blur', () => {
       const val = tgInput.value.trim();
       if (val && !val.startsWith('@')) tgInput.value = '@' + val;
@@ -2577,22 +2620,45 @@
     bookingForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const tgVal = tgInput.value.trim();
-      if (!tgVal.startsWith('@') || tgVal.length < 2) {
-        tgInput.setCustomValidity('Нік повинен починатись з @');
-        tgInput.reportValidity();
-        return;
+      const nameVal  = bookingForm.querySelector('[name="name"]').value.trim();
+      const phoneVal = phoneInput.value.trim().replace(/[\s\-\(\)]/g, '');
+      const tgVal    = tgInput.value.trim();
+      let valid = true;
+
+      // Ім'я
+      const nameInput = bookingForm.querySelector('[name="name"]');
+      if (!nameVal) {
+        nameInput.classList.add('is-error');
+        valid = false;
+      } else {
+        nameInput.classList.remove('is-error');
       }
-      tgInput.setCustomValidity('');
+
+      // Телефон: 9 цифр після +380
+      if (!/^\d{9}$/.test(phoneVal)) {
+        showError(phoneInput, phoneWrap, phoneError);
+        valid = false;
+      } else {
+        clearError(phoneInput, phoneWrap, phoneError);
+      }
+
+      // Telegram: @ + мінімум 2 символи
+      if (!tgVal.startsWith('@') || tgVal.length < 3) {
+        showError(tgInput, null, tgError);
+        valid = false;
+      } else {
+        clearError(tgInput, null, tgError);
+      }
+
+      if (!valid) return;
 
       const btn = bookingForm.querySelector('button[type="submit"]');
       btn.innerHTML = 'Відправляємо… <span class="btn-primary__arrow">→</span>';
       btn.disabled = true;
 
-      const phoneDigits = bookingForm.querySelector('[name="phone"]').value.trim().replace(/\s/g, '');
       const data = {
-        name:     bookingForm.querySelector('[name="name"]').value.trim(),
-        phone:    '+380' + phoneDigits,
+        name:     nameVal,
+        phone:    '+380' + phoneVal,
         telegram: tgVal,
       };
 
