@@ -2472,6 +2472,15 @@
      SCRIPTS
      ============================================ -->
 <script>
+  // Capture UTM params on first landing → store in sessionStorage
+  (function() {
+    const p = new URLSearchParams(window.location.search);
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'].forEach(k => {
+      const v = p.get(k);
+      if (v) sessionStorage.setItem(k, v);
+    });
+  })();
+
   // Nav: barely-there → solid on scroll
   const nav = document.getElementById('nav');
   const onScroll = () => {
@@ -2656,10 +2665,15 @@
       btn.innerHTML = 'Відправляємо… <span class="btn-primary__arrow">→</span>';
       btn.disabled = true;
 
+      const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+      const utm = {};
+      utmKeys.forEach(k => utm[k] = sessionStorage.getItem(k) || '');
+
       const data = {
         name:     nameVal,
         phone:    '+380' + phoneVal,
         telegram: tgVal,
+        ...utm,
       };
 
       // fire-and-forget з keepalive — працює навіть на повільному мобільному
