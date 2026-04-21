@@ -253,14 +253,15 @@
       color: #F8F6F1;
     }
     .hero__title {
-      font-family: var(--font-display);
-      font-weight: 400;
+      font-family: var(--font-body);
+      font-weight: 500;
       font-size: clamp(2.75rem, 8vw, 7.5rem);
-      line-height: 0.96;
-      letter-spacing: var(--tracking-tight);
+      line-height: 1.05;
+      letter-spacing: 0.18em;
       margin: 0 0 1.25rem;
       max-width: 14ch;
       color: #F8F6F1;
+      text-transform: uppercase;
     }
     .hero__subtitle {
       font-family: var(--font-display);
@@ -1489,6 +1490,91 @@
       html { font-size: 100%; }
     }
 
+    /* ============================================
+       BOOKING FORM
+       ============================================ */
+    .booking {
+      background: var(--color-bg-alt);
+    }
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 520px;
+    }
+    .booking-form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .booking-form__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .booking-form__input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-text);
+      background: var(--color-bg);
+      border: 1px solid var(--color-line);
+      border-bottom: 2px solid var(--color-text);
+      outline: none;
+      transition: border-color 0.3s var(--ease-out);
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+    .booking-form__input:focus {
+      border-color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+    .booking-form__input::placeholder {
+      color: var(--color-text-subtle);
+    }
+    .booking-form__submit {
+      margin-top: 0.5rem;
+      align-self: flex-start;
+    }
+    /* Thank you */
+    .booking-thankyou {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .booking-thankyou__photo {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .booking-thankyou__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .booking-thankyou__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      letter-spacing: var(--tracking-tight);
+      margin: 0 0 1.25rem;
+      line-height: 1.05;
+    }
+    .booking-thankyou__desc {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 1.3vw, 1.1875rem);
+      line-height: 1.6;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+    @media (max-width: 700px) {
+      .booking-thankyou { grid-template-columns: 1fr; }
+    }
+
     /* Plain image placeholder helper */
     .img-placeholder {
       width: 100%;
@@ -1521,7 +1607,7 @@
     <a href="#team">Команда</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a href="https://t.me/Ilya_marketing1?text=%D0%9F%D1%80%D0%B8%D0%B2%D1%96%D1%82%21%20%0A%D0%A5%D0%BE%D1%87%D1%83%20%D0%B4%D1%96%D0%B7%D0%BD%D0%B0%D1%82%D0%B8%D1%81%D1%8C%20%D0%B1%D1%96%D0%BB%D1%8C%D1%88%D0%B5%20%D0%BF%D1%80%D0%BE%20Mountain%20Camp%20Chamonix%20%F0%9F%97%BB" target="_blank" rel="noopener" class="nav__cta">Забронювати</a>
+  <a href="#booking-form" target="_blank" rel="noopener" class="nav__cta">Забронювати</a>
 </nav>
 
 <!-- ============================================
@@ -1573,7 +1659,7 @@
     <p class="hero__social-proof">Chamonix  ·  June 6–13, 2026</p>
 
     <div class="hero__actions">
-      <a href="https://t.me/Ilya_marketing1?text=%D0%9F%D1%80%D0%B8%D0%B2%D1%96%D1%82%21%20%0A%D0%A5%D0%BE%D1%87%D1%83%20%D0%B4%D1%96%D0%B7%D0%BD%D0%B0%D1%82%D0%B8%D1%81%D1%8C%20%D0%B1%D1%96%D0%BB%D1%8C%D1%88%D0%B5%20%D0%BF%D1%80%D0%BE%20Mountain%20Camp%20Chamonix%20%F0%9F%97%BB" target="_blank" rel="noopener" class="btn-primary">
+      <a href="#booking-form" target="_blank" rel="noopener" class="btn-primary">
         Забронювати місце
         <span class="btn-primary__arrow">→</span>
       </a>
@@ -1756,18 +1842,18 @@
       <article class="activity-card">
         <div class="activity-card__num">06 / 07</div>
         <div class="activity-card__image">
-          <img src="activity-yoga-new.jpg" alt="Йога та медитація — поза лотоса" loading="lazy" />
+          <img src="activity-tea.jpg" alt="Чайна церемонія — чай у вікні" loading="lazy" />
         </div>
-        <h3 class="activity-card__title">Йога · Медитація</h3>
-        <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
+        <h3 class="activity-card__title">Чайна церемонія</h3>
+        <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
       </article>
       <article class="activity-card">
         <div class="activity-card__num">07 / 07</div>
         <div class="activity-card__image">
-          <img src="activity-tea.jpg" alt="Чайна церемонія — розлив чаю з парою" loading="lazy" />
+          <img src="activity-yoga-new.jpg" alt="Йога та медитація" loading="lazy" />
         </div>
-        <h3 class="activity-card__title">Чайна церемонія</h3>
-        <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
+        <h3 class="activity-card__title">Йога · Медитація</h3>
+        <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
       </article>
       <!-- Duplicate set for seamless loop -->
       <article class="activity-card" aria-hidden="true">
@@ -1813,18 +1899,18 @@
       <article class="activity-card" aria-hidden="true">
         <div class="activity-card__num">06 / 07</div>
         <div class="activity-card__image">
-          <img src="activity-yoga-new.jpg" alt="" loading="lazy" />
-        </div>
-        <h3 class="activity-card__title">Йога · Медитація</h3>
-        <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
-      </article>
-      <article class="activity-card" aria-hidden="true">
-        <div class="activity-card__num">07 / 07</div>
-        <div class="activity-card__image">
           <img src="activity-tea.jpg" alt="" loading="lazy" />
         </div>
         <h3 class="activity-card__title">Чайна церемонія</h3>
         <p class="activity-card__desc">Ритуал сповільнення. День раптом стає довшим.</p>
+      </article>
+      <article class="activity-card" aria-hidden="true">
+        <div class="activity-card__num">07 / 07</div>
+        <div class="activity-card__image">
+          <img src="activity-yoga-new.jpg" alt="" loading="lazy" />
+        </div>
+        <h3 class="activity-card__title">Йога · Медитація</h3>
+        <p class="activity-card__desc">Повертає тіло після гір. Не «баланс тіла і душі» — просто працює.</p>
       </article>
   </div>
 
@@ -2114,6 +2200,7 @@
           <li>Pre-camp підготовка · план тренувань</li>
           <li>Онбординг-дзвінок + знайомство групи</li>
           <li>After-camp follow-up</li>
+          <li>Доступ до чату з корисною інформацією за 2 тижні до початку кемпа</li>
         </ul>
       </div>
       <div data-reveal data-reveal-delay="1">
@@ -2122,7 +2209,6 @@
           <li>Авіаквитки</li>
           <li>Трансфер Женева → Шамоні</li>
           <li>Обіди (вільний формат)</li>
-          <li>Особисте спорядження (дамо чек-лист)</li>
           <li>Спорядження для віафератти (каска, обв'язка, вусики — оренда на місці)</li>
           <li>Вартість підйомника (за потреби · підкажемо заздалегідь)</li>
           <li>Страхування (обовʼязкове · підкажемо де)</li>
@@ -2131,13 +2217,12 @@
     </div>
 
     <div class="pricing__cta-row" data-reveal>
-      <a href="https://t.me/Ilya_marketing1?text=%D0%9F%D1%80%D0%B8%D0%B2%D1%96%D1%82%21%20%0A%D0%A5%D0%BE%D1%87%D1%83%20%D0%B4%D1%96%D0%B7%D0%BD%D0%B0%D1%82%D0%B8%D1%81%D1%8C%20%D0%B1%D1%96%D0%BB%D1%8C%D1%88%D0%B5%20%D0%BF%D1%80%D0%BE%20Mountain%20Camp%20Chamonix%20%F0%9F%97%BB" target="_blank" rel="noopener" class="btn-primary btn-primary--dark">
+      <a href="#booking-form" target="_blank" rel="noopener" class="btn-primary btn-primary--dark">
         Забронювати місце
         <span class="btn-primary__arrow">→</span>
       </a>
       <span class="pricing__cta-note">Перед бронюванням — короткий дзвінок. Хочемо знати, хто їде.</span>
     </div>
-    <p class="pricing__referral">Приводиш друга — кожен платить €2 500 замість €2 800.</p>
   </div>
 </section>
 
@@ -2265,6 +2350,52 @@
 </section>
 
 <!-- ============================================
+     BOOKING FORM
+     ============================================ -->
+<section class="booking" id="booking-form">
+  <div class="container-narrow">
+    <div id="booking-form-wrap">
+      <div class="section-header">
+        <span class="section-header__num">—</span>
+        <span class="section-header__label">Заявка</span>
+      </div>
+      <h2 class="section-title" data-reveal data-reveal-delay="1">Залишити заявку.</h2>
+      <p style="font-size: 1rem; color: var(--color-text-muted); margin: 0 0 2.5rem; max-width: 44ch; line-height: 1.7;" data-reveal data-reveal-delay="2">
+        Перед бронюванням — короткий дзвінок. Залиш контакти, і ми зв'яжемося з тобою найближчим часом.
+      </p>
+      <form class="booking-form" id="the-booking-form" data-reveal data-reveal-delay="3">
+        <div class="booking-form__field">
+          <label class="booking-form__label">Ім'я</label>
+          <input type="text" name="name" class="booking-form__input" placeholder="Як до тебе звертатись?" required />
+        </div>
+        <div class="booking-form__field">
+          <label class="booking-form__label">Номер телефону</label>
+          <input type="tel" name="phone" class="booking-form__input" placeholder="+380 __ ___ __ __" required />
+        </div>
+        <div class="booking-form__field">
+          <label class="booking-form__label">Нік у Telegram</label>
+          <input type="text" name="telegram" class="booking-form__input" placeholder="@username" required />
+        </div>
+        <button type="submit" class="btn-primary btn-primary--dark booking-form__submit">
+          Відправити заявку
+          <span class="btn-primary__arrow">→</span>
+        </button>
+      </form>
+    </div>
+
+    <div class="booking-thankyou" id="booking-thankyou" style="display:none;">
+      <div class="booking-thankyou__photo">
+        <img src="thankyou-photo.jpg" alt="Recreate Mountain Camp — учасники кемпу" />
+      </div>
+      <div class="booking-thankyou__text">
+        <h2 class="booking-thankyou__title">Дякуємо<br />за заявку.</h2>
+        <p class="booking-thankyou__desc">Зовсім скоро ми зв'яжемося з тобою — і разом визначимо, чи це саме твоє.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
      FOOTER
      ============================================ -->
 <footer class="footer" id="contacts">
@@ -2274,22 +2405,19 @@
         <h2 class="footer__title">Recreate<br />Mountain Camp.</h2>
         <p class="footer__meta">Chamonix  ·  June 6–13, 2026  ·  14 людей</p>
         <p style="max-width: 40ch; line-height: 1.65; opacity: 0.8; margin: 0;">
-          Є питання? Напиши в Telegram або Instagram. Відповімо протягом 2 годин.
+          Є питання? Напиши в Instagram — відповімо.
         </p>
       </div>
       <div>
         <div class="footer__contacts-title">Контакт</div>
         <div class="footer__contacts">
-          <a href="https://t.me/Ilya_marketing1?text=%D0%9F%D1%80%D0%B8%D0%B2%D1%96%D1%82%21%20%0A%D0%A5%D0%BE%D1%87%D1%83%20%D0%B4%D1%96%D0%B7%D0%BD%D0%B0%D1%82%D0%B8%D1%81%D1%8C%20%D0%B1%D1%96%D0%BB%D1%8C%D1%88%D0%B5%20%D0%BF%D1%80%D0%BE%20Mountain%20Camp%20Chamonix%20%F0%9F%97%BB" target="_blank" rel="noopener">Telegram · @Ilya_marketing1</a>
           <a href="https://www.instagram.com/recreate.surfcamp" target="_blank" rel="noopener">Instagram · @recreate.surfcamp</a>
-          <a href="tel:+380630302204">+380 63 030 22 04</a>
         </div>
       </div>
     </div>
 
     <div class="footer__bottom">
       <span>© 2026 Recreate Mountain Camp</span>
-      <span>Приводиш друга — кожен платить €2 500.</span>
     </div>
   </div>
 </footer>
@@ -2382,6 +2510,20 @@
 
   setupInfiniteScroll('.activities-scroll', 0.6);
   setupInfiniteScroll('.reviews-scroll', 0.5);
+
+  // Booking form submit → show thank you
+  const bookingForm = document.getElementById('the-booking-form');
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('booking-form-wrap').style.display = 'none';
+      const ty = document.getElementById('booking-thankyou');
+      ty.style.display = 'grid';
+      ty.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Track conversion in Meta Pixel
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+    });
+  }
 </script>
 
 </body>

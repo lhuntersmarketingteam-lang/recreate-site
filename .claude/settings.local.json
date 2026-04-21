@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(grep -E \"^\\(node|php|ruby|caddy|serve|http-server\\)$\")",
+      "Bash(rsync -a --delete \"/Users/macbook/Desktop/RECREATE SITE/index.html\" \"/Users/macbook/Desktop/RECREATE SITE/recreate-media\" /Users/macbook/recreate-preview/)",
+      "Bash(cp \"/Users/macbook/Desktop/RECREATE SITE/recreate-media/\"*.jpg \"/Users/macbook/Desktop/RECREATE SITE/recreate-media/\"*.mp4 /Users/macbook/recreate-preview/)",
+      "Bash(cp \"/Users/macbook/Desktop/RECREATE SITE/index.html\" /Users/macbook/recreate-preview/index.html)",
+      "Bash(ls /Users/macbook/recreate-preview/*.jpg /Users/macbook/recreate-preview/*.mp4)",
+      "Bash([ -f \"/Users/macbook/recreate-preview/$f\" ])",
+      "Bash(sips -s format jpeg /Users/macbook/Downloads/IMG_0128.HEIC --out /Users/macbook/recreate-preview/activity-viaferrata-new.jpg)",
+      "Bash(sips -s format jpeg /Users/macbook/Downloads/IMG_0147.HEIC --out /Users/macbook/recreate-preview/activity-viaferrata2.jpg)",
+      "Bash(sips -s format jpeg /Users/macbook/Downloads/IMG_0229.HEIC --out /Users/macbook/recreate-preview/activity-climbing.jpg)",
+      "Bash(ffmpeg -version)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(qlmanage -t -s 1920 -o /tmp/ /Users/macbook/recreate-preview/hero-video.mp4)",
+      "Read(//private/tmp/**)",
+      "Bash(sips -s format jpeg -s formatOptions 88 /tmp/hero-video.mp4.png --out /Users/macbook/recreate-preview/hero-poster.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/macbook/recreate-preview/hero-poster.jpg)",
+      "Bash(ls /Users/macbook/recreate-preview/*.jpg /Users/macbook/recreate-preview/*.mp4 /Users/macbook/recreate-preview/*.jpeg)",
+      "Bash(python3 -c \"import urllib.parse; print\\(urllib.parse.quote\\('Привіт! \\\\nХочу дізнатись більше про Mountain Camp Chamonix 🗻'\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Authorization: token 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' -H 'Content-Type: application/json' -d '{\"name\":\"recreate-site\",\"private\":true,\"auto_init\":false}' https://api.github.com/user/repos)"
+    ]
+  }
+}
