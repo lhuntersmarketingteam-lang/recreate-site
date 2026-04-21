@@ -1,0 +1,12 @@
+
+# Claude Code internal files
+.claude/
+.DS_Store
+
+# Old project folders
+recreate-media/
+recreate-mountain-camp/
+recreate-launch-kit.zip
+files\ (1).zip
+PROMPT_FOR_CLAUDE_CODE.md
+README.md
