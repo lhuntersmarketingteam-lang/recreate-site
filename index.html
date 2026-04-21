@@ -2537,10 +2537,9 @@
 
   const bookingForm = document.getElementById('the-booking-form');
   if (bookingForm) {
-    bookingForm.addEventListener('submit', async (e) => {
+    bookingForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const btn = bookingForm.querySelector('button[type="submit"]');
-      const origText = btn.innerHTML;
       btn.innerHTML = 'Відправляємо… <span class="btn-primary__arrow">→</span>';
       btn.disabled = true;
 
@@ -2550,14 +2549,14 @@
         telegram: bookingForm.querySelector('[name="telegram"]').value.trim(),
       };
 
-      try {
-        await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-      } catch (_) { /* no-cors — ігноруємо помилку мережі */ }
+      // fire-and-forget з keepalive — працює навіть на повільному мобільному
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        keepalive: true,
+      }).catch(() => {});
 
       if (typeof fbq !== 'undefined') fbq('track', 'Lead');
       window.location.href = 'thank-you.html';
