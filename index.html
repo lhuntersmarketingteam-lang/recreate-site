@@ -255,13 +255,12 @@
     .hero__title {
       font-family: var(--font-body);
       font-weight: 500;
-      font-size: clamp(2.75rem, 8vw, 7.5rem);
-      line-height: 1.05;
-      letter-spacing: 0.18em;
+      font-size: clamp(2rem, 5.5vw, 5rem);
+      line-height: 1.08;
+      letter-spacing: 0.15em;
       margin: 0 0 1.25rem;
       max-width: 14ch;
       color: #F8F6F1;
-      text-transform: uppercase;
     }
     .hero__subtitle {
       font-family: var(--font-display);
@@ -1607,7 +1606,7 @@
     <a href="#team">Команда</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a href="#booking-form" target="_blank" rel="noopener" class="nav__cta">Забронювати</a>
+  <a href="#booking-form" class="nav__cta">Забронювати</a>
 </nav>
 
 <!-- ============================================
@@ -1659,7 +1658,7 @@
     <p class="hero__social-proof">Chamonix  ·  June 6–13, 2026</p>
 
     <div class="hero__actions">
-      <a href="#booking-form" target="_blank" rel="noopener" class="btn-primary">
+      <a href="#booking-form" class="btn-primary">
         Забронювати місце
         <span class="btn-primary__arrow">→</span>
       </a>
@@ -2217,7 +2216,7 @@
     </div>
 
     <div class="pricing__cta-row" data-reveal>
-      <a href="#booking-form" target="_blank" rel="noopener" class="btn-primary btn-primary--dark">
+      <a href="#booking-form" class="btn-primary btn-primary--dark">
         Забронювати місце
         <span class="btn-primary__arrow">→</span>
       </a>
@@ -2383,15 +2382,6 @@
       </form>
     </div>
 
-    <div class="booking-thankyou" id="booking-thankyou" style="display:none;">
-      <div class="booking-thankyou__photo">
-        <img src="thankyou-photo.jpg" alt="Recreate Mountain Camp — учасники кемпу" />
-      </div>
-      <div class="booking-thankyou__text">
-        <h2 class="booking-thankyou__title">Дякуємо<br />за заявку.</h2>
-        <p class="booking-thankyou__desc">Зовсім скоро ми зв'яжемося з тобою — і разом визначимо, чи це саме твоє.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2511,17 +2501,13 @@
   setupInfiniteScroll('.activities-scroll', 0.6);
   setupInfiniteScroll('.reviews-scroll', 0.5);
 
-  // Booking form submit → show thank you
+  // Booking form submit → redirect to thank you page
   const bookingForm = document.getElementById('the-booking-form');
   if (bookingForm) {
     bookingForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      document.getElementById('booking-form-wrap').style.display = 'none';
-      const ty = document.getElementById('booking-thankyou');
-      ty.style.display = 'grid';
-      ty.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Track conversion in Meta Pixel
       if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+      window.location.href = 'thank-you.html';
     });
   }
 </script>
