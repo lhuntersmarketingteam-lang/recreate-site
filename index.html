@@ -1549,17 +1549,25 @@
       border-bottom: 2px solid var(--color-text);
       transition: border-color 0.3s var(--ease-out);
     }
-    .booking-form__phone-prefix {
+    .booking-form__country-select {
       font-family: var(--font-body);
-      font-size: 1rem;
-      color: var(--color-text-muted);
-      padding: 1rem 0.75rem 1rem 1.25rem;
-      white-space: nowrap;
-      user-select: none;
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      background: transparent;
+      border: none;
       border-right: 1px solid var(--color-line);
-      display: flex;
-      align-items: center;
+      padding: 1rem 2rem 1rem 1rem;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      min-width: 90px;
+      flex-shrink: 0;
     }
+    .booking-form__country-select:focus { outline: none; }
     .booking-form__phone-wrap .booking-form__input {
       border: none;
       border-bottom: none;
@@ -2424,8 +2432,27 @@
         <div class="booking-form__field">
           <label class="booking-form__label">Номер телефону</label>
           <div class="booking-form__phone-wrap" id="phone-wrap">
-            <span class="booking-form__phone-prefix">+380</span>
-            <input type="tel" name="phone" class="booking-form__input" placeholder="XX XXX XX XX" maxlength="12" />
+            <select class="booking-form__country-select" name="country_code">
+              <option value="+380">🇺🇦 +380</option>
+              <option value="+48">🇵🇱 +48</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+41">🇨🇭 +41</option>
+              <option value="+43">🇦🇹 +43</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+420">🇨🇿 +420</option>
+              <option value="+421">🇸🇰 +421</option>
+              <option value="+40">🇷🇴 +40</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+31">🇳🇱 +31</option>
+              <option value="+32">🇧🇪 +32</option>
+              <option value="+373">🇲🇩 +373</option>
+              <option value="+995">🇬🇪 +995</option>
+              <option value="+972">🇮🇱 +972</option>
+            </select>
+            <input type="tel" name="phone" class="booking-form__input" placeholder="XX XXX XX XX" />
           </div>
           <span class="booking-form__error" id="phone-error">Введи коректний номер — 9 цифр після +380</span>
         </div>
@@ -2646,8 +2673,8 @@
         nameInput.classList.remove('is-error');
       }
 
-      // Телефон: 9 цифр після +380
-      if (!/^\d{9}$/.test(phoneVal)) {
+      // Телефон: мінімум 6 цифр (будь-яка країна)
+      if (!/^\d{6,15}$/.test(phoneVal)) {
         showError(phoneInput, phoneWrap, phoneError);
         valid = false;
       } else {
@@ -2672,9 +2699,10 @@
       const utm = {};
       utmKeys.forEach(k => utm[k] = sessionStorage.getItem(k) || '');
 
+      const countryCode = bookingForm.querySelector('[name="country_code"]').value;
       const data = {
         name:     nameVal,
-        phone:    '+380' + phoneVal,
+        phone:    countryCode + ' ' + phoneVal,
         telegram: tgVal,
         ...utm,
       };
