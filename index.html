@@ -1156,7 +1156,8 @@
       color: #fff;
       background: var(--color-accent);
       padding: 0.4rem 0.875rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
+      display: block;
     }
     .pricing__early-bird {
       display: inline-block;
@@ -1788,13 +1789,11 @@
     </div>
   </div>
 
-  <div data-reveal style="padding: 2.5rem var(--container-padding) 0; margin-top: 3rem; border-top: 1px solid var(--color-line);">
-    <div style="display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: start; max-width: 900px;">
-      <div style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); padding-top: 0.2rem; white-space: nowrap;">Яка ідея кемпу?</div>
-      <p style="font-family: var(--font-display); font-style: italic; font-size: clamp(1rem, 1.3vw, 1.1875rem); line-height: 1.7; color: var(--color-text-muted); margin: 0;">
-        Об'єднати людей зі схожими цінностями через спорт і природу. Познайомити з новими активностями або допомогти продовжити розвиватися в них. І ще важливо — показати, наскільки класним може бути такий формат відпочинку, коли все вже продумано за тебе: ти просто розслабляєшся, довіряєш процесу і слідуєш за нами, а ми беремо організацію і турботу на себе.
-      </p>
-    </div>
+  <div data-reveal style="padding: 2.5rem var(--container-padding) 0; margin-top: 3rem; border-top: 1px solid var(--color-line); max-width: 560px;">
+    <div style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.875rem;">Яка ідея кемпу?</div>
+    <p style="font-family: var(--font-display); font-style: italic; font-size: 0.9375rem; line-height: 1.7; color: var(--color-text-muted); margin: 0;">
+      Об'єднати людей зі схожими цінностями через спорт і природу. Познайомити з новими активностями або допомогти продовжити розвиватися в них. І ще важливо — показати, наскільки класним може бути такий формат відпочинку, коли все вже продумано за тебе: ти просто розслабляєшся, довіряєш процесу і слідуєш за нами, а ми беремо організацію і турботу на себе.
+    </p>
   </div>
 </section>
 
@@ -2261,6 +2260,7 @@
   <div class="pricing">
     <div class="pricing__header">
       <div data-reveal>
+        <span class="pricing__spots-badge">⬤ Залишилось 3 місця</span>
         <div class="pricing__amount">
           <span style="text-decoration: line-through; opacity: 0.35; font-size: 0.65em;">€2 800</span>
           <span> €2 000</span>
@@ -2268,8 +2268,7 @@
         <div class="pricing__amount-sub">Передоплата €1 000</div>
       </div>
       <div class="pricing__meta" data-reveal data-reveal-delay="1">
-        <span class="pricing__spots-badge">⬤ Залишилось 3 місця</span>
-        <span class="pricing__early-bird" style="margin-top: 0.75rem;">З другом · €1 750 на кожного</span>
+        <span class="pricing__early-bird">З другом · €1 750 на кожного</span>
         <p class="pricing__per-day">~€250 / день · 8 днів · усе, крім квитків і обідів</p>
       </div>
     </div>
